@@ -15,21 +15,53 @@ function toString(val) { return (new Buffer(val, 'hex')).toString('utf8'); }
 function clear(str) { return str.replace(/\s/g, ''); }
 function print(arr) { arr.forEach(salt => 
 		console.log((new Buffer(clear(salt), 'hex')).readUInt32BE())) }
+function hex(buf) {
+	var i = 0;
+	return buf.toString('hex').split('').reduce((prev, next) => prev += (!(i++ % 2) ? ' ' : '') + next, '').slice(1);
+}
 
 const AUTH_PORT = 65000;
 const AUTH_HOST = 'game.survarium.com';
 
 const AUTH_EMAIL = 'bot@survarium.pro';
-const AUTH_PASS  = 'somepassword'; // пароль тут ненастоящий, пакеты в примерах ниже шифруют другой пароль
+const AUTH_PASS  = 'awesomepassword'; // 61 77 65 73 6f 6d 65 70 61 73 73 77 6f 72 64
+
 const CLIENT_RENDER = 'r1';      // 72 31
-var   CLIENT_VERSION = '0.44c4'; // 30 2e 34 34 63 34
+var   CLIENT_VERSION = '0.44e3'; // 30 2e 34 34 65 33
 
 console.log('version', CLIENT_VERSION, toHex(CLIENT_VERSION));
 console.log('render',  CLIENT_RENDER,  toHex(CLIENT_RENDER));
 
 var AUTH_ADD_STEP1 = [
-	'9e 60 51 38' // 2657112376
+	'9e 60 51 38', // 2657112376
+	'd6 0d 02 62'
 ].pop();
+
+var AUTH_VECTOR = [
+	'8c 00 00 00 30 81 89 02 81 81 00 b2 31 4e 5c dc 1e 04 d5 f6 d7 11 ba 37 25 ae 74 7a 2f 75 a3 1a a4 a2 f4 65 2b 59 94 f5 18 7a 57 0d 53 9e 51 12 b7 04 55 38 90 e0 da eb f6 06 83 05 7f ea e1 f2 af 37 d5 c3 55 49 75 74 bf 0a 82 cd e4 fc f5 72 e4 4b 09 ee a2 34 e2 46 5a 20 f3 eb 8f a5 7a 8f c7 6b 1c 00 e7 7a 44 e2 3c 11 d0 bc 6c e6 10 ce b8 d9 3f 84 92 af f2 60 22 5c 2c fa 1c c2 f4 15 5b d1 50 47 4d b3 dc 18 b6 26 75 02 03 01 00 01 80 6b af 6c'
+].pop();
+
+function encrypt (pass) {
+	// длины 512 явно мало.
+
+	var encode = new Buffer(pass, 'utf8');
+	encode = encode + (new Buffer(clear('d6 0d 02 62'), 'hex'));
+
+	const hash = crypto.createHash('sha512');
+
+	hash.update(pass);
+
+	const hmac = crypto
+		.createHmac('sha512', new Buffer(clear(AUTH_VECTOR), 'hex'));
+	hmac.update(new Buffer(hash.digest('hex'), 'hex'));
+
+	return hmac;
+}
+
+console.log(hex(encrypt(AUTH_PASS).digest('hex')));
+// до 112 длина пароля
+
+//7dae831da92e5c44df3085e6fdc6369ddac418c1bf965489e4673eb98b35451d23bd21b5dbb7832fc0dcc6007ed2b150098f51b774e26966eba49afe21fb8217
 
 var CHECKS = {
 	SALTS: [
@@ -102,14 +134,6 @@ function pass (client, salt) {
 	console.log(salt.readUInt32BE());
 
 	var check = new Buffer(clear(CHECKS.PASSWORDS[0]), 'hex');
-}
-
-function encrypt (pass) {
-	// длины 512 явно мало.
-	return crypto
-		.createHmac('sha512', 
-			new Buffer(clear('f4 71 2e b1' + '00 8f 98 25 15'), 'hex'))
-	    .update(new Buffer(pass, 'utf8'));
 }
 
 var client;
