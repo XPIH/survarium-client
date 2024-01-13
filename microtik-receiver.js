@@ -286,7 +286,7 @@ function foundPlayers() {
 
 function newFriendAdded() {
 0xAF;
-// схоже на коллбек успішного додавання друга, але код той самий, що foundPlayers
+// схоже на коллбек успішного додавання друга, але код такий же, що і foundPlayers
 `
 0000   43 36 78 af 1c 05 01 00 ae 67 93 f5 2c fc 40 20  C6x......g..,.@ 
 0010   0e 73 75 72 76 61 72 69 75 6d 2d 63 68 61 74 00  .survarium-chat.
