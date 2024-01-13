@@ -10,4 +10,3 @@
 Невирішені питання:
 * чесна авторизація по email та паролю
 * реалізація механізму підтримки з'єднання heartbeat
-* realizatsiya mekhanizmu pidtrymky z'yednannya heartbeat
