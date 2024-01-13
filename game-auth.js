@@ -75,7 +75,7 @@ var CHECKS = {
 	PASSWORDS: [
 		'85 02 80 00 00 00 2f aa 19 0e 39 10 56 42 b1 af 3f e4 15 f7 68 e8 cf 5b 72 85 0b 04 d6 4b c8 d1 08 95 c2 6b da 48 39 21 2a a9 bf 7b e1 b6 05 40 58 a0 c8 52 50 b7 16 09 67 48 0b af ff 0a 0f 18 10 bd bd f2 e0 8f f7 24 f0 7c b7 ed aa b7 eb 5e e3 bd 2e fd d2 5a b5 9e 19 0c 4b ca 6a fd 3d 04 63 d3 aa 95 04 6e d7 b3 49 b8 e2 39 c7 af c0 52 cb 03 fc 90 29 c7 db 1f 8d de c6 ce 53 76 60 7a 9b 05 d5 ab d6 d2'
 	],
-	EMAIL_RESPONSE: [ // ответ сервера после отправки auth() возможно получается при тухлой версии, либо тухлом AUTH_ADD_STEP1
+	EMAIL_RESPONSE: [ // відповідь сервера після відправки auth() можливо виходить при тухлій версії, або тухлому AUTH_ADD_STEP1
 		'97 0d 01 00 8c 00 00 00 30 81 89 02 81 81 00' + // static
 		'f2 f8 5a dd 65 b7 c7 1a c5 58 86 ea 52 89 7d 57 6a 00 09 e9 4c 2a 78 13 00 e7 fa 36 41 8a e7 61 c8 f4 14 bc 1b 50 f1 a7 ff 06 d9 fd 09 a0 e6 d6 2f 41 42 23 04 dd 05 d9 aa f9 4a bc 9e 11 ce 2c ac 59 56 c2 34 6f 74 6f e1 51 53 68 46 5b 70 82 54 50 c5 b8 3b 84 3e 5e 9a aa 9c c1 e4 b5 02 4e 11 36 a5 43 c0 0e a2 12 a6 93 85 6f 1d f7 f6 98 7e 68 db af fd 62 a4 db 38 ce 87 94 3f 03 0b c9' +
 			'02 03 01 00 01' + // static
