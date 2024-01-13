@@ -42,7 +42,7 @@ var AUTH_VECTOR = [
 ].pop();
 
 function encrypt (pass) {
-	// длины 512 явно мало.
+	// Довжини 512 явно мало.
 
 	var encode = new Buffer(pass, 'utf8');
 	encode = encode + (new Buffer(clear('d6 0d 02 62'), 'hex'));
@@ -59,7 +59,7 @@ function encrypt (pass) {
 }
 
 console.log(hex(encrypt(AUTH_PASS).digest('hex')));
-// до 112 длина пароля
+// До 112 довжина пароля
 
 //7dae831da92e5c44df3085e6fdc6369ddac418c1bf965489e4673eb98b35451d23bd21b5dbb7832fc0dcc6007ed2b150098f51b774e26966eba49afe21fb8217
 
